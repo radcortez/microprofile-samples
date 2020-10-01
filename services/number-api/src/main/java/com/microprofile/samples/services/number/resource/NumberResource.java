@@ -12,7 +12,11 @@ import java.util.concurrent.TimeUnit;
 public class NumberResource implements NumberApi {
     @Inject
     @ConfigProperty(name = "generation.prefix", defaultValue = "UN")
-    private GenerationPrefix prefix;
+    GenerationPrefix prefix;
+
+    @Inject
+    @ConfigProperty(name = "additional.prefix", defaultValue = "X")
+    String additionalPrefix;
 
     @Override
     public Response generate() {
@@ -26,6 +30,6 @@ public class NumberResource implements NumberApi {
             //
         }
 
-        return prefix.toString() + "-" + (int) Math.floor((Math.random() * 9999999)) + 1;
+        return prefix.toString() + "-" + additionalPrefix +(int) Math.floor((Math.random() * 9999999)) + 1;
     }
 }
